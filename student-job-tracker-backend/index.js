@@ -10,7 +10,7 @@ const app = express();
 
 const allowedOrigins = process.env.ALLOWED_ORIGIN || "*";
 app.use(cors({ origin: allowedOrigins === "*" ? true : allowedOrigins }));
-ś
+
 app.use(express.json());
 
 app.use("/api", require("./src/routes/jobRoutes"));
