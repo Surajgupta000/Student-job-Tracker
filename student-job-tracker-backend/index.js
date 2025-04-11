@@ -7,7 +7,10 @@ dotenv.config(); //load environment variables from .env file
 connectDB();
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
+app.use(cors({ origin: allowedOrigins }));
+
 app.use(express.json());
 
 app.use("/api", require("./src/routes/jobRoutes"));
