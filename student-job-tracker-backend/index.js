@@ -1,10 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const helmet = require("helmet");
 const connectDB = require("./src/config/db");
-const helmet = require("helmet"); // Add this at the top
 
-dotenv.config(); //load environment variables from .env file
+dotenv.config(); // Load environment variables from .env file
 connectDB();
 
 const app = express();
@@ -14,26 +14,26 @@ app.use(cors({ origin: allowedOrigins === "*" ? true : allowedOrigins }));
 
 app.use(
   helmet({
-    contentSecurityPolicy: {  res.send("Welcome to the Student Job Tracker API");
+    contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        fontSrc: ["'self'", "data:", "https:"],app.use("/api", require("./src/routes/jobRoutes"));
+        fontSrc: ["'self'", "data:", "https:"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+        connectSrc: ["'self'", "https:"],
+        imgSrc: ["'self'", "data:", "https:"],
+      },
+    },
+  })
+);
 
+app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Student Job Tracker API");
+});
 
+app.use("/api", require("./src/routes/jobRoutes"));
 
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));const PORT = process.env.PORT || 5000;app.use("/api", require("./src/routes/jobRoutes"));app.use(express.json()););  })    },      },        imgSrc: ["'self'", "data:", "https:"],        connectSrc: ["'self'", "https:"],        scriptSrc: ["'self'", "'unsafe-inline'", "https:"],        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
